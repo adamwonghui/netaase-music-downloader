@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实时调试工具</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .code {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            margin: 10px 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        button {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #0984e3, #74b9ff);
+        }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+            margin: 10px 0;
+        }
+        .info {
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #2196f3;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔍 实时调试工具</h1>
+        <p>监控插件在网易云音乐页面的实时运行状态</p>
+    </div>
+
+    <div class="section">
+        <h2>📋 使用说明</h2>
+        <div class="info">
+            <h3>操作步骤：</h3>
+            <ol>
+                <li>打开网易云音乐歌曲页面</li>
+                <li>按F12打开开发者工具</li>
+                <li>在Console中粘贴下面的监控代码</li>
+                <li>观察实时输出，了解插件运行状态</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🛠️ 实时监控代码</h2>
+        <div class="warning">
+            <strong>注意：</strong>请在网易云音乐歌曲页面的控制台中执行以下代码
+        </div>
+        
+        <button onclick="copyMonitorCode()">📋 复制监控代码</button>
+        
+        <div class="code" id="monitorCode">// 网易云音乐插件实时监控工具
+console.log('🔍 开始监控网易云音乐下载器插件...');
+
+// 监控页面标题变化
+let lastTitle = document.title;
+console.log('📄 当前页面标题:', lastTitle);
+
+// 监控插件元素
+function checkPluginElements() {
+    const downloadBtn = document.querySelector('.netease-download-btn');
+    const floatingBtn = document.querySelector('.netease-floating-download-btn');
+    
+    console.log('🔍 插件元素检查:');
+    console.log('  下载按钮:', downloadBtn ? '✅ 存在' : '❌ 不存在');
+    console.log('  浮动按钮:', floatingBtn ? '✅ 存在' : '❌ 不存在');
+    
+    if (downloadBtn) {
+        console.log('  按钮文本:', downloadBtn.textContent.trim());
+        console.log('  按钮HTML:', downloadBtn.outerHTML.substring(0, 200) + '...');
+    }
+}
+
+// 监控插件脚本加载
+function checkPluginScript() {
+    const scripts = document.querySelectorAll('script');
+    let hasContentScript = false;
+    
+    scripts.forEach(script => {
+        if (script.src && script.src.includes('content.js')) {
+            hasContentScript = true;
+        }
+    });
+    
+    console.log('📜 插件脚本状态:');
+    console.log('  Content Script:', hasContentScript ? '✅ 已加载' : '❌ 未检测到');
+}
+
+// 测试歌曲信息提取
+function testSongExtraction() {
+    console.log('\n🎵 测试歌曲信息提取:');
+    
+    const title = document.title;
+    console.log('页面标题:', title);
+    
+    if (title.includes(' - ')) {
+        const parts = title.split(' - ');
+        console.log('标题分割:', parts);
+        console.log('可能的歌曲名:', parts[0]);
+        console.log('可能的艺术家:', parts[1]);
+    }
+    
+    // 测试URL中的歌曲ID
+    const url = window.location.href;
+    const idMatch = url.match(/[?&]id=(\d+)/);
+    if (idMatch) {
+        console.log('歌曲ID:', idMatch[1]);
+    }
+}
+
+// 监控DOM变化
+const observer = new MutationObserver(function(mutations) {
+    let titleChanged = false;
+    let hasNewElements = false;
+    
+    // 检查标题变化
+    if (document.title !== lastTitle) {
+        console.log('📄 标题已变化:');
+        console.log('  旧标题:', lastTitle);
+        console.log('  新标题:', document.title);
+        lastTitle = document.title;
+        titleChanged = true;
+    }
+    
+    // 检查新增元素
+    mutations.forEach(mutation => {
+        if (mutation.type === 'childList') {
+            mutation.addedNodes.forEach(node => {
+                if (node.nodeType === Node.ELEMENT_NODE) {
+                    if (node.classList && (
+                        node.classList.contains('netease-download-btn') ||
+                        node.classList.contains('netease-floating-download-btn')
+                    )) {
+                        console.log('✅ 检测到插件按钮添加:', node.className);
+                        hasNewElements = true;
+                    }
+                    
+                    if (node.querySelector && node.querySelector('.netease-download-btn, .netease-floating-download-btn')) {
+                        console.log('✅ 检测到包含插件按钮的元素添加');
+                        hasNewElements = true;
+                    }
+                }
+            });
+        }
+    });
+    
+    if (titleChanged || hasNewElements) {
+        setTimeout(() => {
+            checkPluginElements();
+            testSongExtraction();
+        }, 1000);
+    }
+});
+
+// 开始监控
+observer.observe(document.body, {
+    childList: true,
+    subtree: true
+});
+
+// 定期检查
+setInterval(() => {
+    console.log('\n⏰ 定期检查 (' + new Date().toLocaleTimeString() + ')');
+    checkPluginElements();
+    checkPluginScript();
+    
+    // 检查插件是否在运行
+    if (window.chrome && window.chrome.runtime) {
+        console.log('🔌 Chrome扩展API可用');
+    } else {
+        console.log('❌ Chrome扩展API不可用');
+    }
+}, 10000); // 每10秒检查一次
+
+// 初始检查
+console.log('\n🚀 初始状态检查:');
+checkPluginElements();
+checkPluginScript();
+testSongExtraction();
+
+// 手动触发插件功能的函数
+window.triggerPluginDebug = function() {
+    console.log('\n🔧 手动触发插件调试...');
+    
+    // 尝试发送消息给插件
+    if (window.chrome && window.chrome.runtime) {
+        try {
+            chrome.runtime.sendMessage({action: 'getSongInfo'}, function(response) {
+                console.log('插件响应:', response);
+            });
+        } catch (e) {
+            console.log('发送消息失败:', e);
+        }
+    }
+    
+    // 检查插件是否注入了全局变量或函数
+    console.log('检查全局对象:');
+    console.log('  window.extractSongInfo:', typeof window.extractSongInfo);
+    console.log('  window.downloadSong:', typeof window.downloadSong);
+};
+
+console.log('\n💡 提示:');
+console.log('- 输入 triggerPluginDebug() 手动触发调试');
+console.log('- 观察控制台输出了解插件运行状态');
+console.log('- 如果没有看到插件相关日志，说明插件可能没有正确加载');
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🎯 测试链接</h2>
+        <p>在以下页面执行监控代码：</p>
+        
+        <a href="https://music.163.com/#/song?id=26386494" target="_blank" style="display: inline-block; background: #ff6b6b; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; margin: 5px;">
+            🎵 Touch (Touch) - 岩崎良美
+        </a>
+        
+        <a href="https://music.163.com/#/song?id=34324255" target="_blank" style="display: inline-block; background: #ff6b6b; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; margin: 5px;">
+            🎌 風のメッセージ
+        </a>
+    </div>
+
+    <div class="section">
+        <h2>🔍 故障排除</h2>
+        <div class="warning">
+            <h3>如果插件不工作，检查以下项目：</h3>
+            <ul>
+                <li><strong>插件是否启用</strong>：在chrome://extensions/中确认插件已启用</li>
+                <li><strong>插件是否重新加载</strong>：点击插件的刷新按钮</li>
+                <li><strong>权限是否正确</strong>：确认插件有访问music.163.com的权限</li>
+                <li><strong>控制台错误</strong>：查看是否有JavaScript错误</li>
+                <li><strong>网络问题</strong>：确认能正常访问网易云音乐</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function copyMonitorCode() {
+            const codeElement = document.getElementById('monitorCode');
+            const text = codeElement.textContent;
+            
+            navigator.clipboard.writeText(text).then(function() {
+                alert('监控代码已复制到剪贴板！\n\n请在网易云音乐歌曲页面的控制台中粘贴并执行。');
+            }).catch(function(err) {
+                console.error('复制失败:', err);
+                alert('复制失败，请手动选择代码并复制。');
+            });
+        }
+        
+        // 页面加载完成
+        window.onload = function() {
+            console.log('实时调试工具页面已加载');
+        };
+    </script>
+</body>
+</html>

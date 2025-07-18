@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>故障排除指南</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .step {
+            background: white;
+            border-left: 4px solid #ff6b6b;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .step h3 {
+            color: #ff6b6b;
+            margin-top: 0;
+        }
+        .code {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            margin: 5px 0;
+        }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+            margin: 10px 0;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #28a745;
+            margin: 10px 0;
+        }
+        .info {
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #2196f3;
+            margin: 10px 0;
+        }
+        button {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #0984e3, #74b9ff);
+        }
+        .checklist {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+        }
+        .checklist label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+        }
+        .checklist input[type="checkbox"] {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔧 故障排除指南</h1>
+        <p>解决网易云音乐下载器插件无法识别歌名的问题</p>
+    </div>
+
+    <div class="section">
+        <h2>🚨 问题症状</h2>
+        <div class="warning">
+            <ul>
+                <li>插件无法识别歌曲名称</li>
+                <li>下载的文件名显示为"网易云音乐"</li>
+                <li>页面上没有出现下载按钮</li>
+                <li>插件似乎没有正常工作</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📋 故障排除步骤</h2>
+        
+        <div class="step">
+            <h3>步骤 1: 检查插件安装</h3>
+            <ol>
+                <li>打开 <code>chrome://extensions/</code></li>
+                <li>确认"网易云音乐下载器"插件已安装且已启用</li>
+                <li>检查插件版本是否为最新版本</li>
+                <li>如果有错误提示，记录错误信息</li>
+            </ol>
+            <div class="success">
+                ✅ 插件应该显示为已启用状态，没有错误提示
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>步骤 2: 重新加载插件</h3>
+            <ol>
+                <li>在扩展程序页面找到插件</li>
+                <li>点击刷新按钮 🔄</li>
+                <li>等待插件重新加载完成</li>
+                <li>关闭所有网易云音乐标签页</li>
+                <li>重新打开歌曲页面</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>步骤 3: 使用调试版本</h3>
+            <p>如果正常版本不工作，尝试使用调试版本：</p>
+            <ol>
+                <li>将 <code>manifest.json</code> 重命名为 <code>manifest-backup.json</code></li>
+                <li>将 <code>manifest-debug.json</code> 重命名为 <code>manifest.json</code></li>
+                <li>重新加载插件</li>
+                <li>访问歌曲页面测试</li>
+            </ol>
+            <div class="info">
+                调试版本会在页面右上角显示一个红色的下载按钮，并输出详细的调试信息
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>步骤 4: 检查控制台日志</h3>
+            <ol>
+                <li>在歌曲页面按 F12 打开开发者工具</li>
+                <li>切换到 Console 标签页</li>
+                <li>刷新页面</li>
+                <li>查找以下日志信息：</li>
+            </ol>
+            <div class="code">🎵 网易云音乐下载器插件已注入
+🚀 网易云音乐下载器插件初始化开始
+✅ 是歌曲页面，继续初始化</div>
+            <div class="warning">
+                如果没有看到这些日志，说明插件没有正确注入
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>步骤 5: 手动测试歌曲信息提取</h3>
+            <p>在控制台中执行以下代码测试：</p>
+            <div class="code">// 测试标题提取
+const title = document.title;
+console.log('页面标题:', title);
+if (title.includes(' - ')) {
+    const parts = title.split(' - ');
+    console.log('分割结果:', parts);
+    console.log('歌曲名:', parts[0]);
+    console.log('艺术家:', parts[1]);
+}</div>
+        </div>
+
+        <div class="step">
+            <h3>步骤 6: 检查权限设置</h3>
+            <ol>
+                <li>在扩展程序页面点击插件的"详细信息"</li>
+                <li>确认"在所有网站上"或"在特定网站上"权限已启用</li>
+                <li>检查是否有"music.163.com"的访问权限</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🔍 常见问题解决方案</h2>
+        
+        <div class="step">
+            <h3>问题 1: 插件没有注入</h3>
+            <div class="warning">
+                <strong>症状：</strong>控制台没有插件相关日志
+            </div>
+            <div class="success">
+                <strong>解决方案：</strong>
+                <ul>
+                    <li>检查manifest.json中的matches规则</li>
+                    <li>确认content_scripts配置正确</li>
+                    <li>重新安装插件</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>问题 2: 无法提取歌曲信息</h3>
+            <div class="warning">
+                <strong>症状：</strong>插件运行但提取不到歌曲名
+            </div>
+            <div class="success">
+                <strong>解决方案：</strong>
+                <ul>
+                    <li>检查页面标题格式是否正确</li>
+                    <li>增加等待时间让页面完全加载</li>
+                    <li>使用调试版本查看详细信息</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>问题 3: 下载按钮不出现</h3>
+            <div class="warning">
+                <strong>症状：</strong>页面上没有下载按钮
+            </div>
+            <div class="success">
+                <strong>解决方案：</strong>
+                <ul>
+                    <li>确认是在歌曲页面（URL包含song?id=）</li>
+                    <li>等待更长时间让页面加载</li>
+                    <li>检查CSS样式是否被覆盖</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>✅ 故障排除检查清单</h2>
+        <div class="checklist">
+            <label><input type="checkbox"> 插件已正确安装并启用</label>
+            <label><input type="checkbox"> 插件已重新加载</label>
+            <label><input type="checkbox"> 在正确的歌曲页面（URL包含song?id=）</label>
+            <label><input type="checkbox"> 控制台显示插件注入日志</label>
+            <label><input type="checkbox"> 页面标题包含歌曲信息</label>
+            <label><input type="checkbox"> 没有JavaScript错误</label>
+            <label><input type="checkbox"> 插件权限设置正确</label>
+            <label><input type="checkbox"> 尝试了调试版本</label>
+        </div>
+        
+        <button onclick="checkAll()">✅ 全部完成</button>
+        <button onclick="uncheckAll()">🔄 重置检查</button>
+    </div>
+
+    <div class="section">
+        <h2>🆘 最后的解决方案</h2>
+        <div class="info">
+            <h3>如果以上步骤都无法解决问题：</h3>
+            <ol>
+                <li><strong>完全重新安装插件</strong>：
+                    <ul>
+                        <li>删除插件</li>
+                        <li>重新下载所有文件</li>
+                        <li>重新生成图标文件</li>
+                        <li>重新安装插件</li>
+                    </ul>
+                </li>
+                <li><strong>检查浏览器兼容性</strong>：
+                    <ul>
+                        <li>确认使用Chrome或基于Chromium的浏览器</li>
+                        <li>更新浏览器到最新版本</li>
+                        <li>尝试在无痕模式下测试</li>
+                    </ul>
+                </li>
+                <li><strong>联系技术支持</strong>：
+                    <ul>
+                        <li>提供详细的错误信息</li>
+                        <li>包含控制台日志截图</li>
+                        <li>说明操作系统和浏览器版本</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function checkAll() {
+            const checkboxes = document.querySelectorAll('.checklist input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.checked = true);
+        }
+        
+        function uncheckAll() {
+            const checkboxes = document.querySelectorAll('.checklist input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.checked = false);
+        }
+        
+        // 页面加载完成
+        window.onload = function() {
+            console.log('故障排除指南页面已加载');
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>生成插件图标</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .icon-container { margin: 20px 0; }
+        canvas { border: 1px solid #ccc; margin: 10px; }
+        button { padding: 10px 20px; margin: 5px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>网易云音乐下载器 - 图标生成器</h1>
+    <p>点击下面的按钮生成不同尺寸的图标，然后右键保存图片。</p>
+    
+    <div class="icon-container">
+        <h3>16x16 图标</h3>
+        <canvas id="icon16" width="16" height="16"></canvas>
+        <button onclick="generateIcon(16)">生成 16x16</button>
+        <button onclick="downloadIcon(16)">下载</button>
+    </div>
+    
+    <div class="icon-container">
+        <h3>32x32 图标</h3>
+        <canvas id="icon32" width="32" height="32"></canvas>
+        <button onclick="generateIcon(32)">生成 32x32</button>
+        <button onclick="downloadIcon(32)">下载</button>
+    </div>
+    
+    <div class="icon-container">
+        <h3>48x48 图标</h3>
+        <canvas id="icon48" width="48" height="48"></canvas>
+        <button onclick="generateIcon(48)">生成 48x48</button>
+        <button onclick="downloadIcon(48)">下载</button>
+    </div>
+    
+    <div class="icon-container">
+        <h3>128x128 图标</h3>
+        <canvas id="icon128" width="128" height="128"></canvas>
+        <button onclick="generateIcon(128)">生成 128x128</button>
+        <button onclick="downloadIcon(128)">下载</button>
+    </div>
+
+    <script>
+        function generateIcon(size) {
+            const canvas = document.getElementById(`icon${size}`);
+            const ctx = canvas.getContext('2d');
+            
+            // 清除画布
+            ctx.clearRect(0, 0, size, size);
+            
+            // 创建渐变背景
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#ff6b6b');
+            gradient.addColorStop(1, '#ee5a24');
+            
+            // 绘制圆形背景
+            const radius = size * 0.47;
+            const center = size / 2;
+            
+            ctx.beginPath();
+            ctx.arc(center, center, radius, 0, 2 * Math.PI);
+            ctx.fillStyle = gradient;
+            ctx.fill();
+            
+            // 绘制白色边框
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = size * 0.03;
+            ctx.stroke();
+            
+            // 绘制音乐符号
+            ctx.fillStyle = 'white';
+            const scale = size / 128;
+            
+            // 音符主体
+            ctx.beginPath();
+            ctx.moveTo(45 * scale, 35 * scale);
+            ctx.lineTo(45 * scale, 75 * scale);
+            ctx.arc(57 * scale, 75 * scale, 12 * scale, 0, 2 * Math.PI);
+            ctx.moveTo(49 * scale, 45 * scale);
+            ctx.lineTo(75 * scale, 40 * scale);
+            ctx.lineTo(75 * scale, 70 * scale);
+            ctx.arc(87 * scale, 70 * scale, 12 * scale, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // 绘制下载箭头
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = size * 0.024;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            // 垂直线
+            ctx.beginPath();
+            ctx.moveTo(center, 85 * scale);
+            ctx.lineTo(center, 105 * scale);
+            ctx.stroke();
+            
+            // 箭头
+            ctx.beginPath();
+            ctx.moveTo((center - 6 * scale), 99 * scale);
+            ctx.lineTo(center, 105 * scale);
+            ctx.lineTo((center + 6 * scale), 99 * scale);
+            ctx.stroke();
+        }
+        
+        function downloadIcon(size) {
+            const canvas = document.getElementById(`icon${size}`);
+            const link = document.createElement('a');
+            link.download = `icon${size}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+        
+        // 页面加载时生成所有图标
+        window.onload = function() {
+            generateIcon(16);
+            generateIcon(32);
+            generateIcon(48);
+            generateIcon(128);
+        };
+    </script>
+</body>
+</html>

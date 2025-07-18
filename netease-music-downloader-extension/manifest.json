@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "网易云音乐下载器",
+  "version": "1.5.0",
+  "description": "在网易云音乐页面添加下载按钮，支持MP3音乐下载",
+  "permissions": [
+    "activeTab",
+    "downloads",
+    "storage",
+    "notifications",
+    "contextMenus"
+  ],
+  "host_permissions": [
+    "https://music.163.com/*",
+    "https://*.music.163.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://music.163.com/*",
+        "https://*.music.163.com/*"
+      ],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "网易云音乐下载器",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["icons/*"],
+      "matches": ["https://music.163.com/*"]
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+/* 网易云音乐下载器 - 样式文件 */
+
+/* 下载按钮样式 */
+.netease-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 8px;
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+    z-index: 9999;
+    position: relative;
+}
+
+.netease-download-btn:hover {
+    background: linear-gradient(135deg, #ff5252, #d63031);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+}
+
+.netease-download-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(255, 107, 107, 0.3);
+}
+
+.netease-download-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* 浮动下载按钮样式 */
+.netease-floating-download-btn {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(255, 107, 107, 0.4);
+    z-index: 10000;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.netease-floating-download-btn:hover {
+    background: linear-gradient(135deg, #ff5252, #d63031);
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.5);
+}
+
+.netease-floating-download-btn:active {
+    transform: scale(1.05);
+}
+
+.netease-floating-download-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* 通知样式 */
+.netease-download-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 10001;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: slideInRight 0.3s ease-out;
+    max-width: 300px;
+    word-wrap: break-word;
+}
+
+.netease-download-notification.info {
+    background: linear-gradient(135deg, #74b9ff, #0984e3);
+}
+
+.netease-download-notification.success {
+    background: linear-gradient(135deg, #00b894, #00a085);
+}
+
+.netease-download-notification.error {
+    background: linear-gradient(135deg, #ff7675, #d63031);
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 适配网易云音乐的特定样式 */
+.m-playbar .netease-download-btn {
+    margin-left: 10px;
+    font-size: 11px;
+    padding: 4px 8px;
+}
+
+.g-single .head .info .netease-download-btn {
+    margin-left: 15px;
+    font-size: 13px;
+    padding: 8px 16px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .netease-floating-download-btn {
+        width: 45px;
+        height: 45px;
+        right: 15px;
+    }
+    
+    .netease-floating-download-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .netease-download-notification {
+        right: 15px;
+        max-width: 250px;
+        font-size: 13px;
+    }
+}
+
+/* 浮动按钮容器样式 */
+.netease-floating-container {
+    position: fixed !important;
+    z-index: 999999 !important;
+    display: flex !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    user-select: none !important;
+}
+
+.netease-draggable-btn {
+    pointer-events: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    cursor: pointer !important;
+}
+
+.netease-drag-handle {
+    pointer-events: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    cursor: move !important;
+}
+
+/* 确保按钮在所有情况下都可见 */
+.netease-download-btn,
+.netease-floating-download-btn,
+.netease-floating-container,
+.netease-draggable-btn {
+    pointer-events: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: flex !important;
+}

@@ -1,0 +1,17 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ee5a24;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景圆形 -->
+  <circle cx="64" cy="64" r="60" fill="url(#bg)" stroke="#fff" stroke-width="4"/>
+  
+  <!-- 音乐符号 -->
+  <path d="M45 35 L45 75 C45 82 50 87 57 87 C64 87 69 82 69 75 C69 68 64 63 57 63 C54 63 51 64 49 66 L49 45 L75 40 L75 70 C75 77 80 82 87 82 C94 82 99 77 99 70 C99 63 94 58 87 58 C84 58 81 59 79 61 L79 35 L45 35 Z" fill="white"/>
+  
+  <!-- 下载箭头 -->
+  <path d="M64 85 L64 105 M58 99 L64 105 L70 99" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

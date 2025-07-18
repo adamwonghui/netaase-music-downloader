@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "网易云音乐下载器 (调试版)",
+  "version": "1.1.0-debug",
+  "description": "调试版本 - 在网易云音乐页面添加下载按钮",
+  "permissions": [
+    "activeTab",
+    "downloads",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://music.163.com/*",
+    "https://*.music.163.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://music.163.com/*",
+        "https://*.music.163.com/*"
+      ],
+      "js": ["content-debug.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

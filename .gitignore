@@ -1,0 +1,13 @@
+# 开发文件
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# 测试文件
+test-*.html
+debug-tool.html
+
+# 临时文件
+downloads/
+temp/

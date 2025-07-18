@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网易云音乐下载器</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                <h1>网易云音乐下载器</h1>
+            </div>
+            <div class="version">v1.2.0</div>
+        </header>
+
+        <main class="main">
+            <div class="current-page" id="currentPage">
+                <div class="page-info">
+                    <span class="status-icon" id="statusIcon">⚪</span>
+                    <span class="page-text" id="pageText">检测中...</span>
+                </div>
+                <button class="download-btn" id="downloadBtn" disabled>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                    </svg>
+                    下载当前歌曲
+                </button>
+            </div>
+
+            <div class="manual-download">
+                <h3>手动下载</h3>
+                <div class="input-group">
+                    <input type="text" id="urlInput" placeholder="粘贴网易云音乐歌曲链接...">
+                    <button id="manualDownloadBtn">下载</button>
+                </div>
+            </div>
+
+
+
+            <div class="download-history">
+                <div class="history-header">
+                    <h3>下载历史</h3>
+                    <button class="clear-btn" id="clearHistoryBtn">清除</button>
+                </div>
+                <div class="history-list" id="historyList">
+                    <div class="loading">加载中...</div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-controls">
+                <button id="darkModeBtn" class="dark-mode-btn">🌙 夜间模式</button>
+            </div>
+            <div class="links">
+                <a href="#" id="helpLink">使用帮助</a>
+                <a href="#" id="feedbackLink">反馈建议</a>
+            </div>
+            <div class="copyright">
+                © 2024 网易云音乐下载器 v1.5.0
+            </div>
+        </footer>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
