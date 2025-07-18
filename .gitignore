@@ -1,13 +1,40 @@
-# 开发文件
-*.log
-*.tmp
+# 只保留 Chrome 扩展程序核心文件
+
+# 排除所有 Python 文件和练习文件
+*.py
+__pycache__/
+*.pyc
+[0-9][0-9]_*.py
+
+# 排除下载文件夹
+downloads/
+
+# 排除系统文件
 .DS_Store
 Thumbs.db
+*.log
+*.tmp
 
-# 测试文件
-test-*.html
-debug-tool.html
+# 排除 Chrome 扩展打包文件
+*.crx
+*.pem
 
-# 临时文件
-downloads/
+# 排除扩展内的测试和调试文件
+netease-music-downloader-extension/test-*.html
+netease-music-downloader-extension/debug-tool.html
+netease-music-downloader-extension/troubleshooting.html
+netease-music-downloader-extension/version-overview.html
+netease-music-downloader-extension/real-time-debug.html
+netease-music-downloader-extension/quick-test.html
+netease-music-downloader-extension/create-simple-icons.html
+netease-music-downloader-extension/generate-icons.html
+netease-music-downloader-extension/install-guide.html
+netease-music-downloader-extension/content-debug.js
+netease-music-downloader-extension/manifest-debug.json
+
+# 排除文档文件
+README_*.md
+
+# 排除其他目录
+网易云音乐下载插件/
 temp/
